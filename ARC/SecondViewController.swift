@@ -15,8 +15,14 @@ protocol SecondViewControllerDelegate : class {
 
 class SecondViewController: UIViewController {
     
-    let button : UIButton = {
+    var delegate : SecondViewControllerDelegate?
+    
+    
+    lazy var button : UIButton = {
+        
         let b = UIButton()
+        b.frame.size = CGSize(width: 100, height: 100)
+        b.center = view.center
         b.setTitle("클릭", for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.addTarget(self, action: #selector(backToFirstVC), for: .touchUpInside)
@@ -25,33 +31,28 @@ class SecondViewController: UIViewController {
         
     }()
     
-    var delegate : SecondViewControllerDelegate!
-    
-    deinit { print("deinit : SecondViewController") }
+    deinit {
+        
+        print("deinit : SecondViewController")
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "SecondVC"
-        self.view.backgroundColor = .white
-        
-        self.view.addSubview(button)
-        
-        self.button.frame.size = CGSize(width: 100, height: 100)
-        self.button.center = self.view.center
-
+        title = "SecondVC"
+        view.backgroundColor = .white
+        view.addSubview(button)
 
     }
     
     
+    
     @objc func backToFirstVC() {
         
-        self.dismiss(animated: true) {
-            
-            self.delegate?.changeButtonText("Hi")
-            
-        }
+        self.delegate?.changeButtonText("Hi")
         self.navigationController?.popViewController(animated: true)
+//        self
         
     }
     

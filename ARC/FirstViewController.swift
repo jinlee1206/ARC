@@ -8,12 +8,16 @@
 
 import UIKit
 
+
 class FirstViewController: UIViewController {
     
     let secondVC = SecondViewController()
     
-    let button : UIButton = {
+    lazy var button : UIButton = {
+        
         let b = UIButton()
+        b.frame.size = CGSize(width: 100, height: 100)
+        b.center = view.center
         b.setTitle("클릭", for: .normal)
         b.setTitleColor(.black, for: .normal)
         b.addTarget(self, action: #selector(goToSecondVC), for: .touchUpInside)
@@ -28,22 +32,16 @@ class FirstViewController: UIViewController {
         self.title = "FirstVC"
         
         view.backgroundColor = .white
+        view.addSubview(button)
         
-        self.view.addSubview(button)
-    
-        self.button.frame.size = CGSize(width: 100, height: 100)
-        self.button.center = self.view.center
-        
-
     }
     
     
     @objc func goToSecondVC() {
-        
-        
+                
         secondVC.delegate = self
-        self.present(secondVC, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(secondVC, animated: true)
+//        self.present(secondVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(secondVC, animated: true)
     
     }
 
